@@ -1,6 +1,10 @@
 class GildedRose
   attr_reader :name, :days_remaining, :quality
 
+  AGED_BRIE = "Aged Brie"
+  BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
+  SULFURAS = "Sulfuras, Hand of Ragnaros"
+
   def initialize(name:, days_remaining:, quality:)
     @name = name
     @days_remaining = days_remaining
@@ -8,13 +12,13 @@ class GildedRose
   end
 
   def tick
-    if @name != "Aged Brie" and @name != "Backstage passes to a TAFKAL80ETC concert"
-      if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
+    if @name != AGED_BRIE and @name != BACKSTAGE_PASSES
+      if @quality > 0 && @name != SULFURAS
         decrease_quality
       end
     elsif @quality < 50
       increase_quality
-      if @name == "Backstage passes to a TAFKAL80ETC concert"
+      if @name == BACKSTAGE_PASSES
         if @days_remaining < 11 && @quality < 50
           increase_quality
         end
@@ -23,14 +27,14 @@ class GildedRose
         end
       end
     end
-    if @name != "Sulfuras, Hand of Ragnaros"
+    if @name != SULFURAS
       reduce_days_left
     end
 
     if @days_remaining < 0
-      # if @name != "Aged Brie"
-      #   if @name != "Backstage passes to a TAFKAL80ETC concert"
-          # if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
+      # if @name != AGED_BRIE
+      #   if @name != BACKSTAGE_PASSES
+          # if @quality > 0 && @name != SULFURAS
           #   decrease_quality
           # end
         # else
@@ -40,16 +44,16 @@ class GildedRose
       #   increase_quality
       # end
 
-      special_items_list = ["Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert", "Aged Brie"]
+      special_items_list = [SULFURAS, BACKSTAGE_PASSES, AGED_BRIE]
       if @quality > 0 && !special_items_list.include?(@name)
         decrease_quality
       end
 
-      if @name == "Backstage passes to a TAFKAL80ETC concert"
+      if @name == BACKSTAGE_PASSES
         expire_item
       end
 
-      if @name == "Aged Brie" && @quality < 50
+      if @name == AGED_BRIE && @quality < 50
         increase_quality
       end
     end
