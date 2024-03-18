@@ -28,15 +28,28 @@ class GildedRose
     end
 
     if @days_remaining < 0
-      if @name != "Aged Brie"
-        if @name != "Backstage passes to a TAFKAL80ETC concert"
-          if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
-            decrease_quality
-          end
-        else
-          expire_item
-        end
-      elsif @quality < 50
+      # if @name != "Aged Brie"
+      #   if @name != "Backstage passes to a TAFKAL80ETC concert"
+          # if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
+          #   decrease_quality
+          # end
+        # else
+        #   expire_item
+        # end
+      # elsif @quality < 50
+      #   increase_quality
+      # end
+
+      special_items_list = ["Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert", "Aged Brie"]
+      if @quality > 0 && !special_items_list.include?(@name)
+        decrease_quality
+      end
+
+      if @name == "Backstage passes to a TAFKAL80ETC concert"
+        expire_item
+      end
+
+      if @name == "Aged Brie" && @quality < 50
         increase_quality
       end
     end
