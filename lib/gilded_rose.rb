@@ -10,16 +10,16 @@ class GildedRose
   def tick
     if @name != "Aged Brie" and @name != "Backstage passes to a TAFKAL80ETC concert"
       if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
-        decrement_quality
+        decrease_quality
       end
     elsif @quality < 50
-      increment_quality
+      increase_quality
       if @name == "Backstage passes to a TAFKAL80ETC concert"
         if @days_remaining < 11 && @quality < 50
-          increment_quality
+          increase_quality
         end
         if @days_remaining < 6 && @quality < 50
-          increment_quality
+          increase_quality
         end
       end
     end
@@ -31,24 +31,24 @@ class GildedRose
       if @name != "Aged Brie"
         if @name != "Backstage passes to a TAFKAL80ETC concert"
           if @quality > 0 && @name != "Sulfuras, Hand of Ragnaros"
-            decrement_quality
+            decrease_quality
           end
         else
           expire_item
         end
       elsif @quality < 50
-        increment_quality
+        increase_quality
       end
     end
   end
 
   private
 
-  def increment_quality
+  def increase_quality
     @quality = @quality + 1
   end
 
-  def decrement_quality
+  def decrease_quality
     @quality = @quality - 1
   end
 
