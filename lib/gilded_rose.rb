@@ -11,6 +11,24 @@ class GildedRose
     @quality = quality
   end
 
+  # I am envisioning a couple dramatic changes:
+  # - An item class to encapsulate the information provided to
+  #   GildedRose initializer
+  # - An "ItemStateManager" to handle processing quality and
+  #   expiry adjustments
+  # Items will be passed into the manager and the manager's
+  # responsibility will be to make updates to the item
+  # Caveat is that if operating under the assumption that we
+  # will NOT change the tests at all then we need to still have
+  # methods open to access item qualities from GildedRose.
+  # This begs the question: Is it valuable to actually make an
+  # Item class?
+  # If we create a manager object I believe it does otherwise
+  # we would have a messy back and forth between GildedRose and
+  # ItemManager OR we would be better served with multiple managers
+  # Should we start with an ItemQualityManager and ItemExpiryManager
+  # and see if it feels reasonable to further isolate those activities
+  # out of the GildedRose class?
   def tick
     # reduce item quality on non-special items
     if @name != AGED_BRIE and @name != BACKSTAGE_PASSES
