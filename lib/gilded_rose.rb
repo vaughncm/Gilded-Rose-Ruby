@@ -35,11 +35,8 @@ class GildedRose
     if @quality > 0 && !SPECIAL_ITEMS_LIST.include?(@name)
       decrease_quality
     end
-    # if @name != AGED_BRIE and @name != BACKSTAGE_PASSES
-      # if @quality > 0 && @name != SULFURAS
-      #   decrease_quality
-      # end
-    # increase item quality (value) on special items
+
+    # increase item quality on special items
     if @quality < 50 && SPECIAL_ITEMS_LIST.include?(@name)
       increase_quality
       # backstage passes have increased value based on days
