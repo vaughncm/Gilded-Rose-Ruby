@@ -4,6 +4,7 @@ class GildedRose
   AGED_BRIE = "Aged Brie"
   BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
   SULFURAS = "Sulfuras, Hand of Ragnaros"
+  SPECIAL_ITEMS_LIST = [SULFURAS, BACKSTAGE_PASSES, AGED_BRIE]
 
   def initialize(name:, days_remaining:, quality:)
     @name = name
@@ -31,12 +32,15 @@ class GildedRose
   # out of the GildedRose class?
   def tick
     # reduce item quality on non-special items
-    if @name != AGED_BRIE and @name != BACKSTAGE_PASSES
-      if @quality > 0 && @name != SULFURAS
-        decrease_quality
-      end
+    if @quality > 0 && !SPECIAL_ITEMS_LIST.include?(@name)
+      decrease_quality
+    end
+    # if @name != AGED_BRIE and @name != BACKSTAGE_PASSES
+      # if @quality > 0 && @name != SULFURAS
+      #   decrease_quality
+      # end
     # increase item quality (value) on special items
-    elsif @quality < 50
+    if @quality < 50 && SPECIAL_ITEMS_LIST.include?(@name)
       increase_quality
       # backstage passes have increased value based on days
       # remaining to concert
@@ -57,8 +61,7 @@ class GildedRose
 
     # expired items lose more quality until junk
     if @days_remaining < 0
-      special_items_list = [SULFURAS, BACKSTAGE_PASSES, AGED_BRIE]
-      if @quality > 0 && !special_items_list.include?(@name)
+      if @quality > 0 && !SPECIAL_ITEMS_LIST.include?(@name)
         decrease_quality
       end
 
